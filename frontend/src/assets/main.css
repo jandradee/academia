@@ -1,0 +1,166 @@
+/* ─────────────────────────────────────────────────────────────────────
+   SISTEMA DE DISEÑO — Academia (white-label)
+   Los colores de marca (--azul, --amarillo, --beige, --rojo) llegan
+   desde src/config/brand.js / la personalización del servidor y se
+   aplican en services/branding.js → applyTheme(). Todo lo demás
+   (superficies, tinta, sombras, radios) es el sistema neutro del
+   producto; las tonalidades de marca se derivan con color-mix().
+   ───────────────────────────────────────────────────────────────────── */
+:root{
+  --azul:#4F46E5;            /* marca: color principal */
+  --amarillo:#F59E0B;        /* marca: acento */
+  --beige:#CBD5E1;           /* marca: neutro */
+  --rojo:#DC2626;            /* marca: alerta */
+  --crema:#F7F9FC;           /* fondo de la app */
+  --tinta:#0F172A;           /* texto principal */
+  --tinta-2:#334155;         /* texto secundario fuerte */
+  --gris:#64748B;            /* texto secundario */
+  --verde:#059669;           /* éxito */
+  --borde:#E2E8F0;
+  --borde-fuerte:#CBD5E1;
+  --superficie:#FFFFFF;
+  --tint:color-mix(in srgb, var(--amarillo) 10%, #fff);
+  --azul-suave:color-mix(in srgb, var(--azul) 8%, #fff);
+  --sombra:0 1px 2px rgba(15,23,42,.05),0 4px 16px rgba(15,23,42,.05);
+  --sombra-lg:0 4px 8px rgba(15,23,42,.05),0 16px 40px rgba(15,23,42,.10);
+  --radio:16px;
+  --radio-sm:10px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--tinta);background:var(--crema);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--azul);text-decoration:none;font-weight:500}
+a:hover{text-decoration:underline}
+h1,h2,h3{color:var(--tinta);line-height:1.18;margin:0 0 .4em;letter-spacing:-.015em;font-weight:750}
+p{line-height:1.55}
+::selection{background:color-mix(in srgb, var(--azul) 22%, #fff)}
+:focus-visible{outline:2px solid var(--azul);outline-offset:2px;border-radius:4px}
+
+/* ---------- Encabezado ---------- */
+header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--borde)}
+header.site .bar{max-width:1240px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:28px}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none!important}
+.logo .mark{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--azul),color-mix(in srgb, var(--azul) 62%, #111827));display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 4px 10px color-mix(in srgb, var(--azul) 35%, transparent)}
+.logo .w1{display:block;font-weight:800;font-size:19px;color:var(--tinta);line-height:1;letter-spacing:-.02em}
+.logo .w2{display:block;font-size:11.5px;color:var(--gris);margin-top:2px;font-weight:500}
+nav.main{display:flex;gap:4px;margin-left:8px}
+nav.main a{color:var(--tinta-2);font-weight:600;font-size:14.5px;padding:8px 12px;border-radius:9px;text-decoration:none!important;transition:background .15s ease,color .15s ease}
+nav.main a:hover{background:#F1F5F9;color:var(--tinta)}
+nav.main a.router-link-active{background:var(--azul-suave);color:var(--azul)}
+.userbox{margin-left:auto;display:flex;align-items:center;gap:10px}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--azul),color-mix(in srgb, var(--azul) 60%, #111827));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13.5px;letter-spacing:.02em}
+.linkbtn{background:none;border:0;color:var(--gris);cursor:pointer;font-size:13px;font-weight:600;padding:6px 8px;border-radius:8px;box-shadow:none}
+.linkbtn:hover{color:var(--rojo);background:#FEF2F2;box-shadow:none}
+main{display:block}
+.wrap{max-width:1240px;margin:0 auto;padding:28px 24px 48px}
+footer.site{text-align:center;color:var(--gris);padding:28px 24px;font-size:13px;border-top:1px solid var(--borde);background:#fff;margin-top:8px}
+
+/* ---------- Botones y píldoras ---------- */
+button,.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--azul);color:#fff;border:1px solid var(--azul);padding:11px 20px;border-radius:11px;cursor:pointer;font-weight:650;font-size:15px;font-family:inherit;box-shadow:0 1px 2px rgba(15,23,42,.08);transition:filter .15s ease,box-shadow .15s ease,transform .05s ease,background .15s ease}
+button:hover,.btn:hover{filter:brightness(1.07);box-shadow:0 6px 16px color-mix(in srgb, var(--azul) 28%, transparent);text-decoration:none}
+button:active,.btn:active{transform:translateY(1px)}
+button:disabled,.btn:disabled{opacity:.5;cursor:not-allowed;filter:none;box-shadow:none}
+.btn-blue{background:var(--azul);border-color:var(--azul);color:#fff}
+.btn-accent{background:var(--amarillo);border-color:var(--amarillo);color:#1C1005}
+.btn-accent:hover{box-shadow:0 6px 16px color-mix(in srgb, var(--amarillo) 35%, transparent)}
+.btn-outline{background:#fff;border:1.5px solid var(--azul);color:var(--azul)}
+.btn-outline:hover{background:var(--azul-suave);filter:none}
+.btn-ghost{background:#fff;border:1px solid var(--borde-fuerte);color:var(--tinta-2)}
+.btn-ghost:hover{background:#F8FAFC;filter:none;box-shadow:var(--sombra)}
+.btn-danger{background:var(--rojo);border-color:var(--rojo);color:#fff}
+.btn-sm{padding:7px 14px;font-size:13.5px;border-radius:9px}
+.pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.01em}
+.pill-obligatorio{background:var(--azul-suave);color:var(--azul)}
+.pill-opcional{background:#F1F5F9;color:var(--gris)}
+.pill-completado{background:#ECFDF5;color:#047857}
+.pill-borrador{background:#F1F5F9;color:#475569}
+.pill-archivado{background:#FFFBEB;color:#B45309}
+.pill-publicado{background:#ECFDF5;color:#047857}
+
+/* ---------- Tarjetas y estructura ---------- */
+.card{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio);padding:22px;box-shadow:var(--sombra)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.progress{height:8px;background:#E8EDF3;border-radius:999px;overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,color-mix(in srgb, var(--azul) 78%, #fff),var(--azul));border-radius:999px;transition:width .4s ease}
+.empty{border:1.5px dashed var(--borde-fuerte);border-radius:var(--radio);padding:28px 22px;text-align:center;color:var(--gris);background:#fff}
+.empty strong{color:var(--tinta-2);display:block;font-size:15.5px;margin-bottom:4px}
+input,select,textarea{padding:11px 13px;border:1px solid var(--borde-fuerte);border-radius:var(--radio-sm);width:100%;margin:6px 0 12px;font-family:inherit;font-size:15px;background:#fff;color:var(--tinta);transition:border-color .15s ease,box-shadow .15s ease}
+input::placeholder,textarea::placeholder{color:#94A3B8}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px color-mix(in srgb, var(--azul) 18%, transparent)}
+input[type="color"]{padding:4px;height:46px}
+input[type="checkbox"],input[type="radio"]{accent-color:var(--azul)}
+label{font-size:14px;font-weight:600;color:var(--tinta-2)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--gris);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--borde)}
+td{padding:12px;border-bottom:1px solid #EEF2F6;font-size:14.5px;color:var(--tinta-2)}
+tbody tr{transition:background .12s ease}
+tbody tr:hover{background:#F8FAFC}
+.meta{color:var(--gris);font-size:13.5px}
+
+/* ---------- Héroe ---------- */
+.hero{background:linear-gradient(120deg,color-mix(in srgb, var(--azul) 88%, #0B1120),color-mix(in srgb, var(--azul) 58%, #0B1120));color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(560px 260px at 85% -40px,color-mix(in srgb, var(--amarillo) 32%, transparent),transparent 70%);pointer-events:none}
+.hero .wrap{padding-top:38px;padding-bottom:38px;display:flex;gap:26px;align-items:center;justify-content:space-between;flex-wrap:wrap;position:relative;z-index:1}
+.hero .eyebrow{color:color-mix(in srgb, var(--amarillo) 82%, #fff);font-weight:800;letter-spacing:1.8px;font-size:12px;text-transform:uppercase}
+.hero h1{color:#fff;font-size:clamp(27px,3.4vw,40px);max-width:660px;margin:.22em 0 .3em;font-weight:800}
+.hero p{color:rgba(255,255,255,.82);margin:0;max-width:580px}
+.chips{display:flex;gap:14px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(6px);color:#fff;border-radius:14px;padding:14px 20px;min-width:132px}
+.chip small{display:block;color:rgba(255,255,255,.72);font-size:12.5px;font-weight:600;letter-spacing:.02em}
+.chip strong{font-size:29px;font-weight:800;letter-spacing:-.02em}
+
+/* ---------- Cursos ---------- */
+.cols{display:grid;grid-template-columns:2fr 1fr;gap:24px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.course-row{display:flex;gap:16px;background:#fff;border:1px solid var(--borde);border-radius:var(--radio);padding:16px;box-shadow:var(--sombra);margin-bottom:16px;align-items:center;transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease}
+.course-row:hover{box-shadow:var(--sombra-lg);border-color:var(--borde-fuerte)}
+.cover{width:150px;height:104px;flex:none;border-radius:12px;background:linear-gradient(135deg,color-mix(in srgb, var(--azul) 16%, #fff),color-mix(in srgb, var(--azul) 38%, #fff));display:flex;align-items:center;justify-content:center;color:var(--azul);font-size:13px;font-weight:600;position:relative;overflow:hidden}
+.cover .play{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;color:var(--azul);font-size:16px;box-shadow:0 4px 12px rgba(15,23,42,.18);padding-left:3px}
+.course-card{overflow:hidden;padding:0;display:flex;flex-direction:column;transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease}
+.course-card:hover{box-shadow:var(--sombra-lg);transform:translateY(-3px);border-color:var(--borde-fuerte)}
+.course-card .cover{width:100%;height:172px;border-radius:0;font-size:15px}
+.course-card .body{padding:18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.course-card .body .btn{margin-top:auto}
+.side-card{background:#fff;border:1px solid var(--borde);border-radius:var(--radio);padding:20px;box-shadow:var(--sombra);margin-bottom:18px}
+.side-card h3{font-size:16.5px;margin-bottom:10px}
+.due-item{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #EEF2F6}
+.due-item:last-child{border-bottom:0}
+.due-badge{background:var(--rojo);color:#fff;font-weight:800;font-size:12.5px;border-radius:9px;padding:5px 8px;min-width:44px;text-align:center}
+.due-badge.soft{background:var(--tint);color:#B45309}
+
+/* ---------- Detalle de curso ---------- */
+.crumbs{font-size:13.5px;color:var(--gris);margin-bottom:14px}
+.crumbs a{color:var(--gris);font-weight:600}
+.crumbs a:hover{color:var(--azul)}
+.player{background:#0B1120;border-radius:var(--radio);overflow:hidden;box-shadow:var(--sombra-lg)}
+.player video{width:100%;display:block;max-height:480px;background:#000}
+.player .pfoot{display:flex;justify-content:space-between;color:rgba(255,255,255,.75);font-size:13px;padding:11px 16px}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--borde);margin:22px 0 8px}
+.tabs button{background:none;border:0;border-radius:9px 9px 0 0;padding:10px 14px;color:var(--gris);font-size:15px;font-weight:600;box-shadow:none;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs button:hover{color:var(--tinta);background:#F8FAFC;box-shadow:none;filter:none}
+.tabs button.on{color:var(--azul);border-bottom-color:var(--amarillo)}
+.mod-row{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid var(--borde);border-radius:12px;padding:14px 16px;margin:10px 0;cursor:pointer;text-align:left;width:100%;box-shadow:var(--sombra);color:var(--tinta);font-weight:500;transition:border-color .15s ease,background .15s ease}
+.mod-row:hover{border-color:color-mix(in srgb, var(--azul) 45%, #fff);box-shadow:var(--sombra);filter:none}
+.mod-row .n{width:31px;height:31px;flex:none;border-radius:50%;border:2px solid var(--borde-fuerte);color:var(--gris);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13.5px;background:#fff}
+.mod-row.done .n{background:var(--azul);border-color:var(--azul);color:#fff}
+.mod-row.now{border-color:var(--amarillo);background:var(--tint)}
+.mod-row.now .n{border-color:var(--amarillo);background:var(--amarillo);color:#1C1005}
+
+/* ---------- Consolas (admin/gestor) ---------- */
+.admin-shell{display:grid;grid-template-columns:236px 1fr;gap:0;min-height:72vh;background:#fff}
+@media(max-width:900px){.admin-shell{grid-template-columns:1fr}}
+.admin-side{background:#F8FAFC;border-right:1px solid var(--borde);padding:18px 12px}
+.admin-side button{display:flex;width:100%;background:none;border:0;border-radius:10px;box-shadow:none;color:var(--tinta-2);font-weight:600;font-size:14.5px;padding:11px 14px;justify-content:flex-start;margin-bottom:2px;transition:background .13s ease,color .13s ease}
+.admin-side button:hover{background:#EEF2F7;color:var(--tinta);filter:none;box-shadow:none}
+.admin-side button.on{background:var(--azul-suave);color:var(--azul)}
+.admin-main{padding:28px 32px;background:#fff}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:16px 0}
+.stat-card{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:18px;box-shadow:var(--sombra)}
+.stat-card small{color:var(--gris);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.stat-card strong{display:block;font-size:31px;font-weight:800;margin-top:4px;letter-spacing:-.02em}
+
+/* ---------- Certificado ---------- */
+.cert-frame{background:linear-gradient(135deg,var(--azul),color-mix(in srgb, var(--azul) 60%, #0B1120));padding:14px;border-radius:10px;box-shadow:var(--sombra-lg)}
+.cert-sheet{background:#fff;border:2px solid var(--amarillo);outline:1px solid color-mix(in srgb, var(--amarillo) 55%, #fff);outline-offset:-9px;padding:48px 56px;text-align:center;position:relative}
+.cert-sheet .cname{font-size:40px;font-weight:800;color:var(--azul);margin:.15em 0;letter-spacing:-.01em}
+@media print{ header.site, footer.site, .no-print{display:none!important} body{background:#fff} .wrap{padding:0;max-width:none} .cert-frame{padding:0;box-shadow:none} }

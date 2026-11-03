@@ -1,0 +1,44 @@
+# LMS Río Grande Foods — Docker Compose (SQLite, endurecido, mismo archivo para local y Coolify)
+# - Solo el frontend recibe dominio/puerto. El backend NO se publica: solo nginx lo alcanza.
+# - ALLOWED_IPS (opcional, recomendado): tu IP pública, ej. 203.0.113.10 — si se define, nadie más entra.
+# - DJANGO_SECRET_KEY y DJANGO_ALLOWED_HOSTS son OBLIGATORIOS (la app no arranca sin ellos en producción).
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:?Define DJANGO_SECRET_KEY en Coolify}
+      DJANGO_DEBUG: "False"
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:?Define tu dominio, ej. lms.tudominio.com}
+      CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS:-}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
+      ALLOWED_IPS: ${ALLOWED_IPS:-}
+      TIME_ZONE: America/El_Salvador
+      DATA_DIR: /app/data
+    volumes:
+      - lms_data:/app/data
+      - lms_media:/app/media_private
+    expose:
+      - "8000"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api
+    environment:
+      ALLOWED_IPS: ${ALLOWED_IPS:-}
+    depends_on:
+      - backend
+    expose:
+      - "8080"
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+volumes:
+  lms_data:
+  lms_media:

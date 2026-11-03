@@ -1,0 +1,14 @@
+# Secretos y entorno (NUNCA al repo)
+.env
+deploy/*.env
+*.sqlite3
+backend/data/
+backend/media_private/
+media/
+
+# Dependencias y builds
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+.venv/

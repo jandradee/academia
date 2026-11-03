@@ -1,0 +1,3 @@
+<template><span class="stars"><button v-for="n in 5" :key="n" type="button" class="star" :class="{on: n <= (hover||value)}" @mouseenter="hover=n" @mouseleave="hover=0" @click="$emit('rate', n)" :disabled="readonly">{{ n <= (hover||value) ? '★' : '☆' }}</button></span></template>
+<script setup>import {ref} from 'vue'; defineProps({value:{type:Number,default:0}, readonly:{type:Boolean,default:false}}); defineEmits(['rate']); const hover=ref(0)</script>
+<style>.stars{display:inline-flex;gap:1px}.stars .star{background:none;border:0;color:#CBD5E1;font-size:22px;cursor:pointer;padding:0 1px;box-shadow:none;line-height:1}.stars .star.on{color:var(--amarillo)}.stars .star:hover{box-shadow:none;filter:none}.stars .star:disabled{cursor:default}</style>
