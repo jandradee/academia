@@ -27,10 +27,21 @@ export function applyTheme(){
   r.setProperty('--azul', branding.primary_color); r.setProperty('--amarillo', branding.accent_color); r.setProperty('--beige', branding.beige_color); r.setProperty('--rojo', branding.danger_color)
   document.title = branding.company_name ? `${branding.platform_name} · ${branding.company_name}` : branding.platform_name
 }
-export const me = reactive({ loaded:false, is_superuser:false, role_codes:[], display_name:'' })
+export const me = reactive({ loaded:false, is_superuser:false, role_codes:[], display_name:'', username:'', email:'', avatar_url:'', avatar_blob:'', language:'es', email_notifications:true })
 export async function loadMe(){
   if(!localStorage.getItem('access')){ me.loaded=true; return }
-  try{ const {data}=await api.get('/auth/me/'); Object.assign(me,data); me.loaded=true }catch{ me.loaded=true }
+  try{
+    const {data}=await api.get('/auth/me/'); Object.assign(me,data)
+    if(data.language){ const { setLang } = await import('./i18n'); setLang(data.language) }
+    if(data.avatar_url){
+      try{
+        const resp = await api.get(data.avatar_url, { responseType:'blob' })
+        if(me.avatar_blob) URL.revokeObjectURL(me.avatar_blob)
+        me.avatar_blob = URL.createObjectURL(resp.data)
+      }catch{ me.avatar_blob='' }
+    } else { me.avatar_blob='' }
+    me.loaded=true
+  }catch{ me.loaded=true }
 }
 export const isAdmin = () => me.is_superuser || me.role_codes.includes('ADMIN')
 export const isManager = () => isAdmin() || me.role_codes.includes('GESTOR')

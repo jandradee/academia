@@ -12,6 +12,9 @@ class User(AbstractUser):
     job_title=models.CharField(max_length=150,blank=True)
     office_location=models.CharField(max_length=150,blank=True)
     last_synced_at=models.DateTimeField(null=True,blank=True)
+    avatar=models.FileField(upload_to="avatars/",null=True,blank=True)
+    language=models.CharField(max_length=5,default="es")
+    email_notifications=models.BooleanField(default=True)
     roles=models.ManyToManyField(Role,through="UserRole",through_fields=("user","role"),related_name="users",blank=True)
     class Meta: ordering=["display_name","username"]
 class UserRole(models.Model):
